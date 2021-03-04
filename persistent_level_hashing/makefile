@@ -1,22 +1,25 @@
 all: plevel
 
+CFLAGS=-g -O0
+CC=gcc
+
 plevel: test.o level_hashing.o hash.o pflush.o log.o
-	gcc -o plevel test.o level_hashing.o hash.o pflush.o log.o libnvmemul.so -lm
+	$(CC) $(CFLAGS) -o plevel test.o level_hashing.o hash.o pflush.o log.o -lm -lpmem -lpmemobj
 
 hash.o: hash.c hash.h
-	gcc -c hash.c
+	$(CC) $(CFLAGS) -c hash.c
 	
 level_hashing.o: level_hashing.c level_hashing.h
-	gcc -c level_hashing.c
+	$(CC) $(CFLAGS) -c level_hashing.c
 
 test.o: test.c level_hashing.h
-	gcc -c test.c
+	$(CC) $(CFLAGS) -c test.c
 
 pflush.o: pflush.c pflush.h
-	gcc -c pflush.c
+	$(CC) $(CFLAGS) -c pflush.c
 
 log.o: log.c log.h
-	gcc -c log.c
+	$(CC) $(CFLAGS) -c log.c
 
 clean:
 	rm -rf *.o plevel

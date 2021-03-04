@@ -22,4 +22,8 @@
 
 void pflush(uint64_t *addr);
 
-void init_pflush(int cpu_speed_mhz, int write_latency_ns);
+void init_pmalloc(const char *fname);
+
+void *pmalloc(size_t nbytes);
+
+void pfree(void *ptr, size_t nelem);

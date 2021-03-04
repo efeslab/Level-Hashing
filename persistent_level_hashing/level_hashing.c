@@ -52,8 +52,9 @@ void generate_seeds(level_hash *level)
 Function: level_init() 
         Initialize a level hash table
 */
-level_hash *level_init(uint64_t level_size)
+level_hash *level_init(const char *fname, uint64_t level_size)
 {
+    init_pmalloc(fname);
     level_hash *level = pmalloc(sizeof(level_hash));
     if (!level)
     {
