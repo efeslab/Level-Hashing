@@ -5,12 +5,11 @@
 */
 int main(int argc, char* argv[])                        
 {
-    int level_size = atoi(argv[1]);                     // INPUT: the number of addressable buckets is 2^level_size
-    int insert_num = atoi(argv[2]);                     // INPUT: the number of items to be inserted
-    int write_latency = atoi(argv[3]);                  // INPUT: the injected write latency
-    
-    init_pflush(2000, write_latency);
-    level_hash *level = level_init(level_size);
+    const char* fname = argv[1];                  // INPUT: pmem file name
+    int level_size = atoi(argv[2]);                     // INPUT: the number of addressable buckets is 2^level_size
+    int insert_num = atoi(argv[3]);                     // INPUT: the number of items to be inserted
+
+    level_hash *level = level_init(fname, level_size);
     uint64_t inserted = 0, i = 0;
     uint8_t key[KEY_LEN];
     uint8_t value[VALUE_LEN];

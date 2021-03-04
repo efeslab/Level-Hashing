@@ -44,7 +44,7 @@ typedef struct level_hash {               // A Level hash table
     level_log *log;                       // The log
 } level_hash;
 
-level_hash *level_init(uint64_t level_size);     
+level_hash *level_init(const char*, uint64_t level_size);     
 
 uint8_t level_insert(level_hash *level, uint8_t *key, uint8_t *value);          
 
