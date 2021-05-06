@@ -24,6 +24,6 @@ void pflush(uint64_t *addr);
 
 void init_pmalloc(const char *fname);
 
-void *pmalloc(size_t nbytes);
+void *pmalloc_lvl(size_t nbytes);
 
 void pfree(void *ptr, size_t nelem);

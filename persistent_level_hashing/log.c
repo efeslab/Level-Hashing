@@ -6,14 +6,14 @@ Function: log_create()
 */
 level_log* log_create(uint64_t log_length)
 {
-    level_log* log = pmalloc(sizeof(level_log));
+    level_log* log = pmalloc_lvl(sizeof(level_log));
     if (!log)
     {
         printf("Log creation fails: 1\n");
         exit(1);
     }
 
-    log->entry = pmalloc(log_length*sizeof(log_entry));
+    log->entry = pmalloc_lvl(log_length*sizeof(log_entry));
     if (!log->entry)
     {
         printf("Log creation fails: 2");
@@ -23,7 +23,7 @@ level_log* log_create(uint64_t log_length)
     log->log_length = log_length;
     log->current = 0;
 
-    log->entry_insert = pmalloc(log_length*sizeof(log_entry_insert));
+    log->entry_insert = pmalloc_lvl(log_length*sizeof(log_entry_insert));
     if (!log->entry_insert)
     {
         printf("Log creation fails: 3");

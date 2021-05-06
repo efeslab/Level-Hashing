@@ -94,7 +94,7 @@ Function: level_init()
 level_hash *level_init(const char *fname, uint64_t level_size)
 {
     init_pmalloc(fname);
-    level_hash *level = pmalloc(sizeof(level_hash));
+    level_hash *level = pmalloc_lvl(sizeof(level_hash));
     if (!level)
     {
         printf("The level hash table initialization fails:1\n");
@@ -105,8 +105,8 @@ level_hash *level_init(const char *fname, uint64_t level_size)
     level->addr_capacity = pow(2, level_size);
     level->total_capacity = pow(2, level_size) + pow(2, level_size - 1);
     generate_seeds(level);
-    level->buckets[0] = pmalloc(pow(2, level_size)*sizeof(level_bucket));
-    level->buckets[1] = pmalloc(pow(2, level_size - 1)*sizeof(level_bucket));
+    level->buckets[0] = pmalloc_lvl(pow(2, level_size)*sizeof(level_bucket));
+    level->buckets[1] = pmalloc_lvl(pow(2, level_size - 1)*sizeof(level_bucket));
     level->interim_level_buckets = NULL;
     level->level_item_num[0] = 0;
     level->level_item_num[1] = 0;
@@ -150,7 +150,7 @@ void level_expand(level_hash *level)
     pflush((uint64_t *)&level->resize_state);
 
     level->addr_capacity = pow(2, level->level_size + 1);
-    level->interim_level_buckets = pmalloc(level->addr_capacity*sizeof(level_bucket));
+    level->interim_level_buckets = pmalloc_lvl(level->addr_capacity*sizeof(level_bucket));
     if (!level->interim_level_buckets) {
         printf("The expanding fails: 2\n");
         exit(1);
@@ -258,7 +258,7 @@ void level_shrink(level_hash *level)
     pflush((uint64_t *)&level->resize_state);
 
     level->level_size --;
-    level_bucket *newBuckets = pmalloc(pow(2, level->level_size - 1)*sizeof(level_bucket));
+    level_bucket *newBuckets = pmalloc_lvl(pow(2, level->level_size - 1)*sizeof(level_bucket));
     level->interim_level_buckets = level->buckets[0];
     level->buckets[0] = level->buckets[1];
     level->buckets[1] = newBuckets;

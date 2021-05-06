@@ -51,7 +51,7 @@ void init_pmalloc(const char *fname)
     assert(pop && "Cannot be null!");
 }
 
-void *pmalloc(size_t nbytes) {
+void *pmalloc_lvl(size_t nbytes) {
     TOID(struct driver_root) root = POBJ_ROOT(pop, struct driver_root);
 
     TX_BEGIN(pop) {
